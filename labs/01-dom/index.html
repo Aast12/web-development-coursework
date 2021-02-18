@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="styles.css" />
+        <title>Shopping Cart</title>
+    </head>
+    <body>
+        <main>
+            <h1>Shopping Cart</h1>
+            <div id="item-input" class="d-flex w-100">
+                <div class="f-1 d-flex fd-col">
+                    <div
+                        class="d-flex w-100 fd-col"
+                        style="
+                            flex-wrap: wrap;
+                            border-bottom: 1px solid rgba(92, 92, 92, 0.357); ;
+                        "
+                    >
+                        <label for="name">Name of product</label>
+                        <input
+                            class="f-1"
+                            id="name"
+                            name="name"
+                            type="text"
+                            placeholder="Name of product"
+                        />
+                    </div>
+                    <div class="d-flex w-100" style="flex-wrap: wrap">
+                        <div class="d-flex f-1 fd-col">
+                            <label for="price">Price</label>
+                            <div style="padding-left: 0.5rem" class="d-flex">
+                                <span style="padding-bottom: 0.5rem">$</span>
+                                <input
+                                    class="f-1"
+                                    min="0"
+                                    style="padding-left: 0"
+                                    id="price"
+                                    name="price"
+                                    type="number"
+                                    placeholder="Price"
+                                />
+                            </div>
+                        </div>
+                        <div class="d-flex f-1 fd-col">
+                            <label for="units"># of units</label>
+                            <input
+                                value="1"
+                                min="1"
+                                id="units"
+                                name="units"
+                                type="number"
+                                placeholder="Units"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <button id="add-item" class="info">+</button>
+            </div>
+            <div id="total-label-container">
+                <h3 id="total-label">Total: $0.00</h3>
+            </div>
+
+            <ul id="shopping-list"></ul>
+
+            <script src="index.js"></script>
+        </main>
+    </body>
+</html>
