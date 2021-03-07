@@ -34,6 +34,11 @@ function deleteItem(_) {
     shoppingList.splice(itemIndex, 1);
     document.getElementById(el.id).remove();
     updateTotalLabel();
+
+    if (shoppingList.length == 0) {
+        const emptyMsg = document.getElementById('empty-msg');
+        emptyMsg.style.display = 'block';
+    }
 }
 
 const modifyItemUnits = (modifier = 1) =>
@@ -137,18 +142,24 @@ function onload() {
 
             return;
         }
-        if (parseFloat(item.price) == NaN || parseFloat(item.price) <= 0) {
+        if (
+            Number.isNaN(parseFloat(item.price)) ||
+            parseFloat(item.price) <= 0
+        ) {
             alert('Price must be a number greater than 0');
 
             return;
         }
-        if (parseInt(item.units) == NaN || parseInt(item.units) <= 0) {
-            alert('Price must be an integer greater than 0');
+        if (Number.isNaN(parseInt(item.units)) || parseInt(item.units) <= 0) {
+            alert('Units must be an integer greater than 0');
             return;
         }
         shoppingList.push(item);
         updateTotalLabel();
         renderItem(item);
+
+        const emptyMsg = document.getElementById('empty-msg');
+        emptyMsg.style.display = 'none';
     });
 }
 
