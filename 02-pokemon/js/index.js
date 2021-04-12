@@ -12,6 +12,8 @@ function fetchPokemonData(dName) {
             ? dName
             : document.getElementById('pokemon-name').value;
 
+    document.getElementById('pokemon-name').value = '';
+
     if (pokemonName.length == 0) {
         document.getElementById('pokemon-name').classList.add('border-danger');
         document.getElementById('search').classList.add('bg-danger');
@@ -24,8 +26,6 @@ function fetchPokemonData(dName) {
         document.getElementById('search').classList.remove('bg-danger');
         document.getElementById('empty-msg').style.display = 'none';
     }
-
-    console.log('sheeees', pokemonName);
 
     let req = new XMLHttpRequest();
 
@@ -44,14 +44,10 @@ function fetchPokemonData(dName) {
                     'div',
                     {},
                     data.types.map((t) =>
-                        newElement_(
-                            'img',
-                            {
-                                src: `https://veekun.com/dex/media/types/en/${t.type.name}.png`,
-                                class: 'me-2',
-                            },
-                            {}
-                        )
+                        setAttributes(newElement('img'), {
+                            src: `https://veekun.com/dex/media/types/en/${t.type.name}.png`,
+                            class: 'me-2',
+                        })
                     )
                 );
 
@@ -62,39 +58,40 @@ function fetchPokemonData(dName) {
                         data.stats.map((st) => {
                             const it = (v) => ({ innerText: v });
 
+                            const progressBar = setAttributes(
+                                newElement('div'),
+                                {
+                                    role: 'progressbar',
+                                    'aria-valuenow': '25',
+                                    'aria-valuemin': '0',
+                                    'aria-valuemax': '100',
+                                    class: 'progress-bar',
+                                    style: `width: ${
+                                        (st.base_stat / 256) * 100
+                                    }%`,
+                                }
+                            );
+
+                            const progressBarContainer = newElement(
+                                'div',
+                                {
+                                    className: 'progress flex-grow-1',
+                                },
+                                progressBar
+                            );
+
                             return newElement('tr', {}, [
-                                newElement_('td', {}, it(st.stat.name)),
-                                newElement_(
-                                    'td',
+                                newElement('td', it(st.stat.name)),
+                                setAttributes(
+                                    newElement('td', {}, progressBarContainer),
                                     {
                                         width: '95%',
                                         class: 'px-3',
-                                    },
-                                    {},
-                                    [
-                                        newElement(
-                                            'div',
-                                            {
-                                                className:
-                                                    'progress flex-grow-1',
-                                            },
-                                            [
-                                                newElement_('div', {
-                                                    role: 'progressbar',
-                                                    'aria-valuenow': '25',
-                                                    'aria-valuemin': '0',
-                                                    'aria-valuemax': '100',
-                                                    class: 'progress-bar',
-                                                    style: `width: ${
-                                                        (st.base_stat / 256) *
-                                                        100
-                                                    }%`,
-                                                }),
-                                            ]
-                                        ),
-                                    ]
+                                    }
                                 ),
-                                newElement_('td', {}, it(st.base_stat)),
+                                setAttributes(
+                                    newElement('td', it(st.base_stat))
+                                ),
                             ]);
                         })
                     ),
@@ -104,21 +101,20 @@ function fetchPokemonData(dName) {
                     'div',
                     {},
                     data.abilities
-                        .map((ab, i) => {
-                            console.log(ab);
-                            return [
-                                newElement_(
-                                    'dt',
-                                    { class: 'col-sm-4' },
-                                    { innerText: i == 0 ? 'Abilities' : '' }
-                                ),
-                                newElement_(
-                                    'dd',
-                                    { class: 'col-sm-8' },
-                                    { innerText: ab.ability.name }
-                                ),
-                            ];
-                        })
+                        .map((ab, i) => [
+                            setAttributes(
+                                newElement('dt', {
+                                    innerText: i == 0 ? 'Abilities' : '',
+                                }),
+                                { class: 'col-sm-4' }
+                            ),
+                            setAttributes(
+                                newElement('dd', {
+                                    innerText: ab.ability.name,
+                                }),
+                                { class: 'col-sm-8' }
+                            ),
+                        ])
                         .flat()
                 );
 
@@ -183,4 +179,11 @@ window.onload = () => {
     errorToast = new bootstrap.Toast(toastElList[0]);
 
     document.getElementById('search').onclick = fetchPokemonData;
+    document
+        .getElementById('pokemon-name')
+        .addEventListener('keyup', (event) => {
+            if (event.key == 'Enter') {
+                document.getElementById('search').click();
+            }
+        });
 };
