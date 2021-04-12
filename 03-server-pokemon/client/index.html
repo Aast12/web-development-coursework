@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+            crossorigin="anonymous"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+        />
+
+        <title>Pokemon API</title>
+    </head>
+    <body>
+        <main class="my-5">
+            <div
+                class="container fluid px-0 pt-5 pb-3 text-center"
+                style="max-width: 600px"
+            >
+                <h1 class="mb-3 text-start">Pokemon Deck</h1>
+                <div class="input-group mb-3">
+                    <input
+                        id="pokemon-name"
+                        type="text"
+                        class="form-control"
+                        placeholder="Type a pokemon name"
+                        aria-label="Pokemon name"
+                        aria-describedby="search"
+                    />
+                    <button class="btn btn-primary" type="button" id="search">
+                        Search
+                    </button>
+                </div>
+                <p
+                    id="empty-msg"
+                    class="fs-6 text-danger text-start"
+                    style="line-height: 0; display: none"
+                >
+                    The field must not be empty
+                </p>
+                <p
+                    id="weight-label"
+                    class="fs-5 text-start text-muted sticky-top"
+                    style="top: 0"
+                >
+                    There are no pokemon in the deck
+                </p>
+                <div
+                    id="spinner"
+                    class="spinner-border text-primary my-4"
+                    role="status"
+                    style="display: none"
+                >
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <div id="pokemon-list" class="container fluid"></div>
+        </main>
+
+        <div
+            class="toast align-items-center text-white bg-danger position-absolute border-0 top-0 start-50 translate-middle-x my-3"
+            style="pointer-events: none"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+            id="error-toast"
+        >
+            <div class="d-flex">
+                <div class="toast-body">Pokemon name not found. Try again.</div>
+                <button
+                    type="button"
+                    class="btn-close btn-close-white me-2 m-auto"
+                    data-bs-dismiss="toast"
+                    aria-label="Close"
+                ></button>
+            </div>
+        </div>
+        <div
+            class="toast align-items-center text-white bg-danger position-absolute border-0 top-0 start-50 translate-middle-x my-3"
+            style="pointer-events: none"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+            id="repeated-error-toast"
+        >
+            <div class="d-flex">
+                <div class="toast-body">The pokemon is already in the deck</div>
+                <button
+                    type="button"
+                    class="btn-close btn-close-white me-2 m-auto"
+                    data-bs-dismiss="toast"
+                    aria-label="Close"
+                ></button>
+            </div>
+        </div>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"
+        ></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <!-- <script src="data.js"></script> -->
+        <script src="js/utils.js"></script>
+        <script src="js/index.js"></script>
+    </body>
+</html>
