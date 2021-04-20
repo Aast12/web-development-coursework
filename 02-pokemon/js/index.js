@@ -163,7 +163,6 @@ function fetchPokemonData(dName) {
 
                 listRef.prepend(pokemonEl);
             } else {
-                console.error('ERRROR', req.response);
                 errorToast.show();
             }
 

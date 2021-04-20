@@ -148,8 +148,6 @@ function createCard(data) {
 
     pokemon.set(data.id, data);
 
-    console.log('DATA', pokemon[data.id]);
-
     updateWeightLabel();
 }
 
