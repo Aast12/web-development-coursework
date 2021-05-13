@@ -6,10 +6,6 @@ const PokemonModel = require('./models/Pokemon.js');
 
 const mongoDb = 'mongodb://127.0.0.1:27017/pokemon';
 
-// export const db = mongoose.connection;
-
-// db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
 const PORT = 5000;
 
 mongoose
