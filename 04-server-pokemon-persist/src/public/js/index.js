@@ -166,6 +166,7 @@ function fetchPokemonData(dName) {
         document.getElementById('search').classList.add('bg-danger');
         document.getElementById('empty-msg').style.display = 'block';
         document.getElementById('spinner').style.display = 'none';
+        return;
     } else {
         document
             .getElementById('pokemon-name')
@@ -220,7 +221,6 @@ window.onload = () => {
                 };
 
                 recentLstEl.appendChild(link);
-                // recentLstEl.innerText = recentLstEl.innerText + ' ';
             }
         }
     });
