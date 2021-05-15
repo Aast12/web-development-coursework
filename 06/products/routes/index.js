@@ -1,9 +1,15 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const productServices = require('../services/products');
+const helper = require('../helpers');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/', async (req, res, next) => {
+    const products = await productServices.getAllServices();
+    res.render('index', {
+        title: 'Express',
+        products: products.map((p) => ({ ...p._doc, image: p.image })),
+        helper,
+    });
 });
 
 module.exports = router;

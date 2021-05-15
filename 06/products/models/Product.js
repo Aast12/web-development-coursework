@@ -12,6 +12,11 @@ const ProductSchema = new Schema({
         required: true,
         min: 0,
     },
+    description: String,
+    image: {
+        data: Buffer, // An array
+        contentType: String,
+    },
     brand: String,
 });
 

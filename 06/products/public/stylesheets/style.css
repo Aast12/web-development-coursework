@@ -1,8 +1,30 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif !important;
 }
 
 a {
-  color: #00B7FF;
+    color: #00b7ff;
+}
+
+.product-list {
+    min-width: 300px;
+}
+
+.product-list > div,
+.new-product {
+    margin: 0.5em 0;
+    padding: 0.75em;
+    transition: all 0.1s linear;
+}
+
+.product-list > .product-preview {
+    height: 125px;
+    /* background-color: var(--bs-indigo); */
+}
+
+.product-list > div:hover,
+.new-product:hover {
+    background-color: rgb(246, 247, 248);
+    cursor: pointer;
 }

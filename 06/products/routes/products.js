@@ -2,45 +2,59 @@ const express = require('express');
 const Product = require('../models/Product');
 const router = express.Router();
 const productModel = require('../models/Product');
-// const model
+const productServices = require('../services/products');
+const { createImage } = require('../services/media');
+const { upload } = require('../services/multer');
 
 router.get('/', async (req, res, next) => {
-    const products = await productModel.find({});
+    const products = await productServices.getAllServices();
 
     res.send(products);
 });
 
-router.post('/create', async (req, res) => {
+router.post('/create', upload.single('image'), async (req, res) => {
     try {
         const newProduct = new Product(req.body);
+
+        if (req.file) {
+            newProduct.image = createImage(req.file);
+        }
 
         await newProduct.save();
         res.sendStatus(200);
     } catch (err) {
-        res.sendStatus(500);
+        res.status(500).send(err);
     }
 });
 
-router.put('/update', async (req, res) => {
+router.put('/update', upload.single('image'), async (req, res) => {
     try {
-        const updateProduct = await productModel.updateOne(
-            { name: req.body?.name },
-            req.body
-        );
+        const { _id, ...values } = req.body;
+
+        if (req.file) {
+            await productModel.updateOne(
+                { _id },
+                {
+                    ...values,
+                    image: createImage(req.file),
+                }
+            );
+        } else {
+            await productModel.updateOne({ _id }, values);
+        }
 
         res.sendStatus(200);
     } catch (err) {
-        res.sendStatus(500);
+        res.status(500).send(err);
     }
 });
 
 router.delete('/delete', async (req, res) => {
     try {
-        await productModel.deleteOne({ name: req.body?.name });
-
+        await productModel.deleteOne({ _id: req.body?.id });
         res.sendStatus(200);
     } catch (err) {
-        res.sendStatus(500);
+        res.status(500).send(err);
     }
 });
 
